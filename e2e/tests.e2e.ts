@@ -53,9 +53,6 @@ describe("Find a Doctor Template", () => {
             
             const registerBtn = await driver.findElementByText("Register", SearchOptions.exact);
             expect(registerBtn).to.exist;
-
-            const screen = await driver.compareScreen("loginScreen");
-            expect(screen).to.be.true;
         });
 
         it('Should show validation messages when login without credentials', async () =>{
