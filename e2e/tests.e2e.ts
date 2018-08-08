@@ -4,7 +4,7 @@ import { isSauceLab, runType } from "nativescript-dev-appium/lib/parser";
 import { exec } from "child_process";
 
 const isSauceRun = isSauceLab;
-const isAndroid: string = runType.includes("android");
+const isAndroid: boolean = runType.includes("android");
 const kinveyMobileUser = process.env.kinveyUsername;
 const kinveyPass = process.env.kinveyPassword;
 
