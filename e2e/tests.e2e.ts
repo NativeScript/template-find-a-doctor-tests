@@ -2,6 +2,7 @@ import { AppiumDriver, createDriver, SearchOptions, Direction, Point } from "nat
 import { expect } from "chai";
 import { isSauceLab, runType } from "nativescript-dev-appium/lib/parser";
 import { exec } from "child_process";
+import { hideKeyboard } from "./helper";
 
 const isSauceRun = isSauceLab;
 const isAndroid: boolean = runType.includes("android");
@@ -72,7 +73,7 @@ describe("Find a Doctor Template", () => {
             const registerBtn = await driver.findElementByText("Register", SearchOptions.exact);
             expect(registerBtn).to.exist;
             await registerBtn.click();
-            driver.wait(500);
+            await driver.wait(500);
             const title = await driver.findElementByText("Registration", SearchOptions.exact);
             expect(title).to.exist;
             const additionalTitle = await driver.findElementByText("ADDITIONAL INFORMATION", SearchOptions.exact);
@@ -128,6 +129,7 @@ describe("Find a Doctor Template", () => {
             await passField.sendKeys("123");
             const confirmField = await driver.findElementByText("Enter password again", SearchOptions.exact);
             await confirmField.sendKeys("123");
+            await hideKeyboard(driver);
             
             if(isAndroid){
                 const wd = driver.wd();
@@ -138,13 +140,14 @@ describe("Find a Doctor Template", () => {
                 .release()
                 await action.perform();
             }
+            await driver.wait(500);
             const firstNameField = await driver.findElementByText("John", SearchOptions.exact);
             await firstNameField.sendKeys("User");
+            await hideKeyboard(driver);
+            await driver.wait(500);
             const lastNameField = await driver.findElementByText("Doe", SearchOptions.exact);
             await lastNameField.sendKeys("Test")
-            if(!isAndroid){
-                await driver.driver.hideDeviceKeyboard();
-            }            
+            await hideKeyboard(driver);          
 
             //Choose female as a gender
             const wd = driver.wd();
@@ -152,14 +155,14 @@ describe("Find a Doctor Template", () => {
             if(isAndroid){
                 const male = await driver.findElementByText("male", SearchOptions.exact);
                 await male.click();
-                driver.wait(500);
+                await driver.wait(500);
                 const female = await driver.findElementByText("female", SearchOptions.exact);
                 await female.click();
             }
             else{
                 const genderBtn = await driver.findElementByText("Gender", SearchOptions.exact);
                 await genderBtn.click();
-                driver.wait(1000);
+                await driver.wait(1000);
                 action = new wd.TouchAction(driver.driver);
                 action.tap({x:  192, y: 540});
                 await action.perform();
@@ -173,25 +176,25 @@ describe("Find a Doctor Template", () => {
             if(isAndroid){
                 const none = await driver.findElementByText("None", SearchOptions.exact);
                 await none.click();
-                driver.wait(500);
+                await driver.wait(500);
                 const blueChoice = await driver.findElementByText("Blue Choice Gold PPO? 001", SearchOptions.exact);
                 await blueChoice.click();
                 //choose date 
                 const pickDate = await driver.findElementByText("Pick a date", SearchOptions.exact);
                 await pickDate.click();
-                driver.wait(1000)
+                await driver.wait(1000)
                 const okBtn = await driver.findElementByText("OK", SearchOptions.exact);
                 await okBtn.click();
-                driver.wait(1000)
+                await driver.wait(1000)
             }
             else{
                 const planBtn = await driver.findElementByText("Plan", SearchOptions.exact);
                 await planBtn.click();            
-                driver.wait(1000);
+                await driver.wait(1000);
                 action = new wd.TouchAction(driver.driver);
                 action.tap({x:  192, y: 540});
                 await action.perform();
-                driver.wait(1000)
+                await driver.wait(1000)
             }
             
             const goldPlan = await driver.findElementByText("Blue Choice Gold PPO? 001", SearchOptions.exact);
@@ -246,7 +249,7 @@ describe("Find a Doctor Template", () => {
                     () => driver.findElementByText("Log Out", SearchOptions.exact),
                     400
                 );
-                driver.wait(1000);
+                await driver.wait(1000);
                 expect(logOutBtn).to.exist;
             }
         });
@@ -268,7 +271,7 @@ describe("Find a Doctor Template", () => {
             if(isAndroid){
                 const filterInput = await driver.findElementByClassName("android.widget.EditText");
                 await filterInput.sendKeys("knee");
-                driver.wait(500);
+                await driver.wait(500);
             }
             const kneeArthro = await driver.findElementByText("Knee Arthroscopy", SearchOptions.exact);
             expect(kneeArthro).to.exist;
@@ -373,7 +376,7 @@ describe("Find a Doctor Template", () => {
         it('Click Find button and verify results', async () => {
             const findBtn = await driver.findElementByText("Find Physician", SearchOptions.exact);
             await findBtn.click();
-            driver.wait(1000);
+            await driver.wait(1000);
             const doctorJerome = await driver.findElementByText("DR Jerome Aya-Ay", SearchOptions.exact);
             expect(doctorJerome).to.exist;
             const description = await driver.findElementByText("Spartanburg Regional Healthcare System", SearchOptions.exact);
@@ -383,7 +386,7 @@ describe("Find a Doctor Template", () => {
         it('Click doctor result item and verify detail page components', async () =>{
             const doctorJerome = await driver.findElementByText("DR Jerome Aya-Ay", SearchOptions.exact);
             await doctorJerome.click();
-            driver.wait(1000);
+            await driver.wait(1000);
 
             const doctorName = await driver.findElementByText("DR Jerome Aya-Ay", SearchOptions.exact);
             expect(doctorName).to.exist;
@@ -429,7 +432,7 @@ describe("Find a Doctor Template", () => {
             const monthName = monthNames[d.getMonth()];
             const dayName = days[d.getDay()];
             const dayCount = new Date().getDate();
-            const dateTitle = dayName + " " + monthName + " " + dayCount;
+            const dateTitle = dayName + " " + monthName + (dayCount < 10 ? " 0" : " ") + dayCount;
 
             if(isAndroid){
                 const wd = driver.wd();
@@ -474,7 +477,7 @@ describe("Find a Doctor Template", () => {
             let locator = isAndroid ? "CONFIRM" : "Confirm";
             const confirmBtn = await driver.findElementByText(locator, SearchOptions.exact);
             await confirmBtn.click();
-            driver.wait(1000);
+            await driver.wait(1000);
 
             const title = await driver.findElementByText("Find Doctor", SearchOptions.exact);
             expect(title).to.exist;
@@ -494,7 +497,7 @@ describe("Find a Doctor Template", () => {
         it('Go to appointment details and verify Doctor\'s information', async () =>{
             const currentAppointment = await driver.findElementByText("Dr. Jerome Aya-Ay", SearchOptions.exact);
             await currentAppointment.click();
-            driver.wait(1000);
+            await driver.wait(1000);
 
             const doctorName = await driver.findElementByText("DR Jerome Aya-Ay", SearchOptions.exact);
             expect(doctorName).to.exist;
@@ -546,12 +549,12 @@ describe("Find a Doctor Template", () => {
         //     }
         //     const cancelBtn = await driver.findElementByText("Cancel this Appointment", SearchOptions.exact);
         //     await cancelBtn.click();
-        //     driver.wait(1000);
+        //     await driver.wait(1000);
         //     const description = await driver.findElementByText("You are canceling the appointment with DR Jerome Aya-Ay", SearchOptions.contains)
         //     let locator = isAndroid ? "CONFIRM" : "Confirm"
         //     const confirmBtn = await driver.findElementByText(locator, SearchOptions.exact);
         //     await confirmBtn.click();
-        //     driver.wait(1000);
+        //     await driver.wait(1000);
 
         //     const title = await driver.findElementByText("Find Doctor", SearchOptions.exact);
         //     expect(title).to.exist;
