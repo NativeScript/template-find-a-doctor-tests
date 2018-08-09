@@ -19,8 +19,7 @@
         "appium-version": "1.8.1",
         "noReset": true,
         "fullReset": false,
-        "app": "",
-        "automationName": "Appium"
+        "app": ""
     },
     "android24.sauce": {
         "platformName": "Android",
@@ -31,13 +30,12 @@
         "appiumVersion": "1.8.1",
         "noReset": true,
         "fullReset": false,
-        "app": "",
-        "automationName": "Appium"
+        "app": ""
     },
     "android25": {
         "platformName": "Android",
         "platformVersion": "7.1",
-        "deviceName": "Google Pixel GoogleAPI",
+        "deviceName": "Emulator_Api25_Google",
         "lt": 60000,
         "appActivity": "com.tns.NativeScriptActivity",
         "newCommandTimeout": 720,
@@ -65,8 +63,7 @@
         "offsetPixels": 87,
         "noReset": true,
         "fullReset": false,
-        "app": "",
-        "automationName": "Appium"
+        "app": ""
     },
     "sim.iPhoneX.iOS113": {
         "platformName": "iOS",

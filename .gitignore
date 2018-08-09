@@ -1,1 +1,5 @@
 /**/*.js
+/node_modules/**/*
+/e2e/reports/**/*
+package.json
+test-results.xml
