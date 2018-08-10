@@ -75,5 +75,16 @@
         "noReset": true,
         "fullReset": false,
         "app": ""
+    },
+    "android24.newsauce": {
+        "platformName": "Android",
+        "platformVersion": "7.0",
+        "deviceName": "Android GoogleAPI Emulator",
+        "lt": 60000,
+        "newCommandTimeout": 720,
+        "appiumVersion": "1.8.1",
+        "noReset": true,
+        "fullReset": false,
+        "app": "https://s3.us-east-2.amazonaws.com/pro-ui/find-a-doctor-ng-android24.apk"
     }
 }
