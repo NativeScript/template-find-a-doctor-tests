@@ -30,7 +30,7 @@
         "appiumVersion": "1.8.1",
         "noReset": true,
         "fullReset": false,
-        "app": ""
+        "app": "sauce-storage:find-a-doctor-ng-android.apk"
     },
     "android25": {
         "platformName": "Android",
@@ -63,7 +63,7 @@
         "offsetPixels": 87,
         "noReset": true,
         "fullReset": false,
-        "app": ""
+        "app": "sauce-storage:find-a-doctor-ng-ios.zip"
     },
     "sim.iPhoneX.iOS113": {
         "platformName": "iOS",
@@ -76,7 +76,7 @@
         "fullReset": false,
         "app": ""
     },
-    "android24.newsauce": {
+    "android24.aws": {
         "platformName": "Android",
         "platformVersion": "7.0",
         "deviceName": "Android GoogleAPI Emulator",
@@ -85,6 +85,17 @@
         "appiumVersion": "1.8.1",
         "noReset": true,
         "fullReset": false,
-        "app": "https://s3.us-east-2.amazonaws.com/pro-ui/find-a-doctor-ng-android24.apk"
+        "app": "https://s3.amazonaws.com/ns-pro-ui/find-a-doctor-ng-android.apk"
+    },
+    "sim.iPhoneX.iOS112.aws": {
+        "platformName": "iOS",
+        "platformVersion": "11.2",
+        "deviceName": "iPhone X",
+        "appiumVersion": "1.8.1",
+        "density": 3,
+        "offsetPixels": 87,
+        "noReset": true,
+        "fullReset": false,
+        "app": "https://s3.amazonaws.com/ns-pro-ui/find-a-doctor-ng-ios.zip"
     }
 }
