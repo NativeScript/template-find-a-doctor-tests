@@ -495,7 +495,8 @@ describe("Find a Doctor Template", () => {
             expect(currentAppointment).to.exist;
         });
 
-        it('Go to appointment details and verify Doctor\'s information', async () =>{
+        // not stable
+        it.skip('Go to appointment details and verify Doctor\'s information', async () =>{
             const currentAppointment = await driver.findElementByText("Dr. Jerome Aya-Ay", SearchOptions.exact);
             await currentAppointment.click();
             await driver.wait(1000);
